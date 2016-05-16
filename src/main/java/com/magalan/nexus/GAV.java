@@ -24,7 +24,7 @@ public class GAV {
     }
 
     public String getRedirectUrl() {
-        String base = DEFAULT_NEXUS + DEFAULT_MOUNT_POINT + "?r=%s&g=%s&a=%s&v=%s";
+        String base = "?r=%s&g=%s&a=%s&v=%s";
         String formated = String.format(base, this.repository, this.groupId, this.artifactId, this.version);
         if (!isNullOrEmpty(packaging)) {
             formated += "&p=" + packaging;

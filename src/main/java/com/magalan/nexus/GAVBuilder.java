@@ -30,7 +30,7 @@ public class GAVBuilder {
     }
 
     public GAVBuilder(String groupId, String artifactId) {
-        String msg = "should not be empty!";
+        String msg = " should not be empty!";
         if (isNullOrEmpty(groupId)) {
             throw new IllegalArgumentException("groupId" + msg);
         }
