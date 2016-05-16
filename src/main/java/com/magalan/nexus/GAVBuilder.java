@@ -26,10 +26,7 @@ public class GAVBuilder {
     private String classifier;
     private String extension;
 
-    public GAV get() {
-        this.version = isNullOrEmpty(version) ? DEFAULT_VERSION : version;
-        this.repository = isNullOrEmpty(repository) ? DEFAULT_REPOSITORY : repository;
-        return new GAV(groupId, artifactId, version, repository, packaging, classifier, extension);
+    private GAVBuilder() {
     }
 
     public GAVBuilder(String groupId, String artifactId) {
@@ -43,6 +40,16 @@ public class GAVBuilder {
 
         this.groupId = groupId;
         this.artifactId = artifactId;
+    }
+
+    public GAV get() {
+        this.version = isNullOrEmpty(version) ? DEFAULT_VERSION : version;
+        this.repository = isNullOrEmpty(repository) ? DEFAULT_REPOSITORY : repository;
+        GAV gav = new GAV(groupId, artifactId, version, repository);
+        gav.setPackaging(packaging);
+        gav.setClassifier(classifier);
+        gav.setExtension(extension);
+        return gav;
     }
 
     public GAVBuilder setVersion(String version) {

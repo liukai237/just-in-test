@@ -16,14 +16,11 @@ public class GAV {
     private String classifier;
     private String extension;
 
-    public GAV(String groupId, String artifactId, String version, String repository, String packaging, String classifier, String extension) {
+    public GAV(String groupId, String artifactId, String version, String repository) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
         this.repository = repository;
-        this.packaging = packaging;
-        this.classifier = classifier;
-        this.extension = extension;
     }
 
     public String getRedirectUrl() {
