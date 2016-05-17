@@ -1,5 +1,8 @@
 package com.magalan.nexus;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Strings;
+
 /**
  * Created by Kai on 2016/5/16.
  */
@@ -31,10 +34,10 @@ public class GAVBuilder {
 
     public GAVBuilder(String groupId, String artifactId) {
         String msg = " should not be empty!";
-        if (isNullOrEmpty(groupId)) {
+        if (Strings.isNullOrEmpty(groupId)) {
             throw new IllegalArgumentException("groupId" + msg);
         }
-        if (isNullOrEmpty(artifactId)) {
+        if (Strings.isNullOrEmpty(artifactId)) {
             throw new IllegalArgumentException("artifactId" + msg);
         }
 
@@ -43,8 +46,8 @@ public class GAVBuilder {
     }
 
     public GAV get() {
-        this.version = isNullOrEmpty(version) ? DEFAULT_VERSION : version;
-        this.repository = isNullOrEmpty(repository) ? DEFAULT_REPOSITORY : repository;
+        this.version = Optional.fromNullable(version).or(DEFAULT_VERSION);
+        this.repository = Optional.fromNullable(repository).or(DEFAULT_REPOSITORY);
         GAV gav = new GAV(groupId, artifactId, version, repository);
         gav.setPackaging(packaging);
         gav.setClassifier(classifier);
@@ -57,28 +60,23 @@ public class GAVBuilder {
         return this;
     }
 
-    public GAVBuilder setArtifactId(String artifactId) {
-        this.artifactId = artifactId;
+    public GAVBuilder setRepository(String repository) {
+        this.repository = repository;
         return this;
     }
 
-    public GAVBuilder setClassifier(String packaging) {
-        this.packaging = packaging;
-        return this;
-    }
-
-    public GAVBuilder setPackageing(String classifier) {
+    public GAVBuilder setClassifier(String classifier) {
         this.classifier = classifier;
+        return this;
+    }
+
+    public GAVBuilder setPackaging(String packaging) {
+        this.packaging = packaging;
         return this;
     }
 
     public GAVBuilder setExtension(String extension) {
         this.extension = extension;
         return this;
-    }
-
-    //TODO replace it with guava api
-    private boolean isNullOrEmpty(String str) {
-        return str == null || str.equals("");
     }
 }

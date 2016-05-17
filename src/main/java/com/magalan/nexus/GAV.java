@@ -1,12 +1,11 @@
 package com.magalan.nexus;
 
+import com.google.common.base.Strings;
+
 /**
  * Created by Kai on 2016/5/16.
  */
 public class GAV {
-    public static final String DEFAULT_NEXUS = "http://repository.sonatype.org";
-    public static final String DEFAULT_MOUNT_POINT = "/service/local/artifact/maven/redirect";
-
     private String groupId;
     private String artifactId;
     private String version;
@@ -21,21 +20,6 @@ public class GAV {
         this.artifactId = artifactId;
         this.version = version;
         this.repository = repository;
-    }
-
-    public String getRedirectUrl() {
-        String base = "?r=%s&g=%s&a=%s&v=%s";
-        String formated = String.format(base, this.repository, this.groupId, this.artifactId, this.version);
-        if (!isNullOrEmpty(packaging)) {
-            formated += "&p=" + packaging;
-        }
-        if (!isNullOrEmpty(classifier)) {
-            formated += "&c=" + classifier;
-        }
-        if (!isNullOrEmpty(extension)) {
-            formated += "&e=" + extension;
-        }
-        return formated;
     }
 
     public String getGroupId() {
@@ -92,10 +76,5 @@ public class GAV {
 
     public void setExtension(String extension) {
         this.extension = extension;
-    }
-
-    //TODO replace it with guava api
-    private boolean isNullOrEmpty(String str) {
-        return str == null || str.equals("");
     }
 }
